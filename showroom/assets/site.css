@@ -1,0 +1,13 @@
+body { margin: 0; background: #fbfaf7; color: #1b1b1b; font: 16px/1.6 Georgia, 'Times New Roman', serif; }
+main { max-width: 48rem; margin: 0 auto; padding: 3rem 1.25rem 4rem; }
+h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 0.6rem; }
+h2 { font-size: 1.15rem; margin: 1.6rem 0 0.5rem; }
+.lede { font-size: 1.12rem; color: #333; }
+.stage { font-family: 'SF Mono', Consolas, monospace; font-size: 0.82rem; color: #880000; border-top: 1px solid #d8d4cb; padding-top: 0.7rem; }
+.queue { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.queue th, .queue td { text-align: left; padding: 0.35rem 0.6rem 0.35rem 0; border-bottom: 1px solid #d8d4cb; vertical-align: top; }
+.queue th { font-weight: normal; color: #555; }
+.queue tr.late td { color: #880000; }
+.queue tr.done td { color: #777; text-decoration: line-through; }
+.steps { padding-left: 1.2rem; font-size: 0.95rem; }
+.steps li { margin-bottom: 0.6rem; }
