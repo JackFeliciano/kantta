@@ -1,33 +1,19 @@
-# Kantta roadmap
+# Roadmap
 
-Kantta keeps a queue of jobs and answers them in a fixed order. Version 1 holds one
-queue in one process and runs one worker, and the list below is what a shop floor
-and a second worker need.
+## Now
 
-## Open in the model
+The wall, its five filters and the schedule manager, with a sample of four companies, five
+seats and one executive.
 
-- A priority is fixed at filing. A job that turns urgent keeps its place.
-- A job cannot be cancelled, so a job filed by mistake runs or sits late.
-- Lateness is measured against a day the caller passes in. Nothing in the model
-  knows a time zone, so two readers in two places can disagree about a late job.
+## Next
 
-## Owed to a worker
+- One seat holds one executive at a time. Let a seat hold two executives who split the hours.
+- Count weekdays apart from weekends, since a seat that asks for two hours a day does not
+  usually ask for them on a Sunday.
+- Let an executive end an engagement early and release the seat back to the wall.
+- Keep a company's seats together on one page instead of scattering them down the wall.
 
-- The queue holds no claim, so two workers polling `next()` take the same job.
-- A job carries no owner and no note, so a worker has to find the work elsewhere.
-- A failed job leaves no mark. It stays waiting with no record of the attempt.
+## Later
 
-## Owed to a reader
-
-- The page shows every job and holds no filters. A reader cannot ask for one
-  priority or one due day.
-- The done jobs sit in a map, so their page order depends on the map and not on
-  the day they finished.
-- The queue holds no history, so a job that ran twice under two workers shows one
-  done day and nothing else.
-
-## Checks owed
-
-- Two workers asking for the next job at the same moment.
-- A queue where every job carries the same handle in different case.
-- A queue of ten thousand jobs, to see whether the sort holds.
+- A seat that names the weeks it needs rather than every day of its term.
+- A second executive on the sample, so the schedule shows two people against one ceiling.

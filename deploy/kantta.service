@@ -1,23 +1,15 @@
 [Unit]
-Description=Kantta account book
+Description=Kantta, a wall of fractional executive seats
 After=network.target
 
 [Service]
 Type=simple
-User=opc
-Group=opc
 WorkingDirectory=/srv/kantta
 Environment=KANTTA_BASE=/kantta/
 ExecStart=/usr/bin/php -S 127.0.0.1:8109 -t showroom showroom/index.php
-Restart=on-failure
-RestartSec=2
-
-NoNewPrivileges=true
-PrivateTmp=true
-ProtectSystem=strict
-ProtectHome=true
-ReadWritePaths=/srv/kantta
-MemoryDenyWriteExecute=false
+Restart=always
+RestartSec=5
+User=opc
 
 [Install]
 WantedBy=multi-user.target

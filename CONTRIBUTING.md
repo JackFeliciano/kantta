@@ -8,7 +8,7 @@ This project accepts small, self-contained changes. Everything runs on plain PHP
 
        php tests/run.php
 
-2. Keep the change inside one concern. A fix to the rules does not carry a new stylesheet.
+2. Keep the change inside one concern. A fix to the booking rules does not carry a new stylesheet.
 3. Add a check for whatever you changed. The suite is a hand-written runner, so a new test is a new case in the matching file under tests/.
 4. Leave the licence headers alone.
 

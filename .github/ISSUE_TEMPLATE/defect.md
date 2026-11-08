@@ -11,7 +11,7 @@ labels: bug
 ## Steps to reproduce
 
     php tests/run.php
-    php -S 127.0.0.1:8109 showroom/index.php
+    php -S 127.0.0.1:8094 showroom/index.php
 
 ## Output
 

@@ -7,14 +7,27 @@ namespace Kantta\App;
 use Kantta\Home\Sample;
 
 /**
- * The front controller. Routes, then renders. The health route answers from the
- * same sample the page renders, so a probe and the page cannot disagree about how
- * many jobs the queue holds.
+ * The front controller. Routes, then renders. The health route answers from the same
+ * sample the page renders, so a probe and the page cannot disagree about the wall.
  */
 final class Front
 {
     public function __construct(private readonly string $base)
     {
+    }
+
+    /** @return array{role: string, hours: int, months: int, sector: string, open: bool} */
+    private function filter(): array
+    {
+        $query = $_GET ?? [];
+
+        return [
+            'role' => is_string($query['role'] ?? null) ? $query['role'] : '',
+            'hours' => (int) ($query['hours'] ?? 0),
+            'months' => (int) ($query['months'] ?? 0),
+            'sector' => is_string($query['sector'] ?? null) ? $query['sector'] : '',
+            'open' => ($query['open'] ?? '') === '1',
+        ];
     }
 
     public function run(): void
@@ -23,14 +36,18 @@ final class Front
         $views = new Views($this->base);
         $sample = new Sample();
 
-        $router->get('/', static fn (): array => [200, [
-            'html' => $views->front($sample),
+        $router->get('/', function () use ($views, $sample): array {
+            return [200, ['html' => $views->wall($sample, $this->filter())]];
+        });
+        $router->get('/schedule', static fn (): array => [200, [
+            'html' => $views->schedule($sample, Sample::MONDAY),
         ]]);
         $router->get('/health', static fn (): array => [200, ['json' => [
             'ok' => true,
-            'jobs' => $sample->size(),
-            'waiting' => $sample->waiting(),
-            'late' => $sample->late(),
+            'seats' => $sample->seats(),
+            'open' => $sample->openSeats(),
+            'engagements' => $sample->engagements(),
+            'hours_monday' => $sample->hoursOnMonday(),
         ]]]);
 
         [$status, $body] = $router->handle(

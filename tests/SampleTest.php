@@ -6,18 +6,15 @@ use Kantta\Home\Sample;
 use Kantta\Tests\Assert;
 
 return [
-    ['the sample holds four jobs and three waiting', static function (): void {
+    ['the sample holds five seats and four open today', static function (): void {
         $sample = new Sample();
-        Assert::same(4, $sample->size());
-        Assert::same(3, $sample->waiting());
+        Assert::same(5, $sample->seats());
+        Assert::same(4, $sample->openSeats());
     }],
-    ['the sample answers one late job', static function (): void {
-        Assert::same(1, (new Sample())->late());
+    ['the sample holds three engagements for one executive', static function (): void {
+        Assert::same(3, (new Sample())->engagements());
     }],
-    ['the sample runs the backup job first on the fixed day', static function (): void {
-        Assert::same('job-1', (new Sample())->queue()->next()->handle);
-    }],
-    ['the sample holds the done day of the backup job', static function (): void {
-        Assert::same('2026-10-02', (new Sample())->queue()->doneOn('job-2'));
+    ['the sample owes nine hours on the first Monday', static function (): void {
+        Assert::same(3, (new Sample())->hoursOnMonday());
     }],
 ];

@@ -1,44 +1,48 @@
 # Kantta
 
-Kantta keeps a queue of jobs and runs them in the order they were filed, one at a
-time. Each job carries the work it needs and the day it has to be done by, and the
-queue tells you what is next, what is late and what is done.
+Kantta is a wall of fractional executive seats. A company posts a seat with the term it
+lasts and the hours a day it takes, an executive takes seats, and the schedule manager
+tells the executive where two seats run at once and where a day runs out of hours.
 
 ## Words
 
-- **job**: one piece of work. It carries a handle, a title, a priority, a filed day
-  and a due day.
-- **priority**: `high`, `normal` or `low`. A higher priority goes before a lower one
-  filed on the same day.
-- **filed day**: the day the job entered the queue. It never changes.
-- **due day**: the last day the job may be done.
-- **queue**: the jobs waiting, in the order they will run.
-- **done**: a job that a worker finished, with the day it finished.
+- **company**: the party hiring. It carries a handle, a name, a town and a sector.
+- **seat**: one open position. It carries a handle, the company, a role, a day rate in
+  cents, the hours a day it takes, the first day and the last day.
+- **term**: the days from the first day to the last day, both of them counted. A seat
+  runs six months at the shortest.
+- **hours a day**: what the seat takes from the executive, between two and eight.
+- **executive**: the party taking seats. It carries a handle, a name, a title and the
+  hours a day it can give across every seat.
+- **engagement**: one executive inside one seat, from its start day to its end day.
 
-## What the queue enforces
+## What the wall enforces
 
-- A job carries a handle, a title and two days, and none of them is empty.
-- A job joins the queue once. A second job with the same handle lands nowhere.
-- The queue runs a job once. A job already done cannot be run again.
-- A job may not be filed with a due day before its filed day.
-- A done day before the filed day lands nowhere.
+- A seat carries a role, a rate, a first day and a last day, and none of them is empty.
+- A seat runs six months at the shortest, so a shorter term lands nowhere.
+- A seat takes two hours a day at the lowest and eight at the highest.
+- A seat closes at its last day. The wall shows it closed and a company cannot extend it.
+- One executive takes one seat at a company. A second engagement at the same company
+  lands nowhere.
+- A role is one of `ceo`, `cfo`, `coo`, `cto`, `cmo`, `chro`, `clo`, or `cso`. An unknown
+  role lands nowhere.
 
-## Order
+## What the schedule answers
 
-1. Higher priority before lower.
-2. Among jobs of one priority, the earlier filed day first.
-3. Among jobs filed on the same day at the same priority, the handle decides, so
-   the order never depends on the map.
+An engagement takes its hours a day across every day of its term. Two engagements of one
+executive clash when their terms overlap and the hours together pass what the executive
+can give. The manager answers, for each week, the hours the executive owes, and names
+the days where the engagements run past the ceiling.
 
-## What the queue answers
+## Filters on the wall
 
-The answer names the jobs in queue order, the job done next, the jobs still
-waiting, the jobs done and the jobs late. A job is late when its due day has passed
-and no worker has finished it.
+- role
+- hours a day, taken as a ceiling
+- term in months, taken as a floor
+- sector
 
 ## Open in version 1
 
-- Whether a priority can change after a job is filed. Version 1 says no.
-- Whether a job can be cancelled. Version 1 says no.
-- Whether the queue holds a worker claim, so two workers never take one job. The
-  demo runs one worker.
+- A seat holds one executive at a time.
+- Nothing in the model moves an engagement's start day once an executive takes it.
+- The schedule counts days, so a week holds seven and every day takes the same hours.
